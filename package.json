@@ -13,7 +13,10 @@
     "nodemon": "^2.0.13"
   },
   "scripts": {
-    "dev": "nodemon index.js"
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "psql": "flyctl postgres connect -a fs-psql-db",
+    "proxy": "flyctl proxy 5432 -a fs-psql-db"
   },
   "author": "",
   "license": "ISC"
