@@ -17,15 +17,16 @@ const errorHandler = (error, request, response, next) => {
   logger.error(error.message);
 
   if (error.name === 'CastError') {
+    console.log('--------cast--------');
     return response.status(400).send({ error: 'malformatted id' });
   } else if (error.name === 'IdError') {
+    console.log('--------is--------');
     return response.status(404).send({ error: error.message });
-  } else if (
-    error.name === 'ValidationError' ||
-    error.name === 'SequelizeValidationError' ||
-    error.name === 'UpdateError'
-  ) {
+  } else if (error.name === 'ValidationError' || error.name === 'UpdateError') {
+    console.log('--------validarion--------');
     return response.status(400).json({ error: error.message });
+  } else if (error.name === 'SequelizeValidationError') {
+    return response.status(404).send({ error: error.message });
   }
 
   next(error);

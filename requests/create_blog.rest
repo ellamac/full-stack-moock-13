@@ -1,7 +1,8 @@
 POST http://localhost:3001/api/blogs/ HTTP/1.1
 content-type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImVsbGFAbWFrZWxhLmNvIiwiaWQiOjEsImlhdCI6MTY5MTYwNTg1NH0.AluRBAfm9CfaSEzJF7q1BxvNaTrT8nKivF6o1uHZcTY
 
 {
-   "title": "Hola",
-   "url": "uaas"
+   "title": "Hohoijjaa",
+   "url": "www.yle.fi"
 }
