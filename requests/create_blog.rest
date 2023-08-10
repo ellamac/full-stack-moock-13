@@ -1,8 +1,10 @@
 POST http://localhost:3001/api/blogs/ HTTP/1.1
 content-type: application/json
-Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImVsbGFAbWFrZWxhLmNvIiwiaWQiOjEsImlhdCI6MTY5MTYwNTg1NH0.AluRBAfm9CfaSEzJF7q1BxvNaTrT8nKivF6o1uHZcTY
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImVsbGFAa2FpdGVyYS5jbyIsImlkIjoyLCJpYXQiOjE2OTE2NjQzMDN9.LRBAQgGpoFVtAmpPjxtap2xZ5VxoDmmEn1xdUZ80jO0
 
 {
-   "title": "Hohoijjaa",
-   "url": "www.yle.fi"
+   "title": "sjfhgjf",
+   "url": "www.yasdsadle.fi",
+   "author": "skdakd",
+   "likes": 599
 }
