@@ -1,0 +1,7 @@
+PUT http://localhost:3001/api/users/ella@makela.co HTTP/1.1
+content-type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluQG1ha2VsYS5jbyIsImlkIjozLCJpYXQiOjE2OTIxMDkzNjF9.G1gMxJO9yWHZi7tH8Yx0O92wF97Cz2-Mp8V2ghqWHHg
+
+{
+  "disabled": "true"
+}

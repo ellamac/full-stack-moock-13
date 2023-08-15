@@ -1,3 +1,5 @@
 psql-connect.sh
 .env
 node_modules
+.dockerignore
+fly.toml
