@@ -1,7 +1,7 @@
 const router = require('express').Router();
 
 const { User, Blog } = require('../models');
-const { tokenExtractor } = require('../util/tokenExtractor');
+const { tokenExtractor } = require('../util/middleware');
 
 router.get('/', async (req, res) => {
   const users = await User.findAll({
@@ -33,18 +33,47 @@ router.get('/:username', userFinder, async (req, res) => {
   res.status(200).json(req.user);
 });
 
-router.put('/:username', userFinder, tokenExtractor, async (req, res) => {
-  let err = new Error('unkown error while updating user');
-  if (!req.body.username) {
-    err.message = 'user.username cannot be undefined';
-  } else if (req.params.username !== req.decodedToken.username) {
-    err.message = 'Cannot change username if not logged in';
+const isAdmin = async (req, res, next) => {
+  const user = await User.findByPk(req.decodedToken.id);
+  if (user.admin) {
+    req.admin = true;
   } else {
-    req.user.username = req.body.username;
-    await req.user.save();
-    return res.status(200).json(req.user);
+    req.admin = false;
   }
-  err.name = 'UpdateError';
-  throw err;
-});
+  next();
+};
+
+router.put(
+  '/:username',
+  userFinder,
+  tokenExtractor,
+  isAdmin,
+  async (req, res) => {
+    let err = new Error('unkown error while updating user');
+
+    if (req.body.hasOwnProperty('disabled')) {
+      if (req.admin) {
+        req.user.disabled = req.body.disabled;
+        await req.user.save();
+        return res.status(200).json(req.user);
+      } else {
+        err.name = 'UpdateError';
+        err.message = 'operation not permitted';
+        throw err;
+      }
+    }
+
+    if (!req.body.username) {
+      err.message = 'user.username cannot be undefined';
+    } else if (req.params.username !== req.decodedToken.username) {
+      err.message = 'Cannot change username if not logged in';
+    } else {
+      req.user.username = req.body.username;
+      await req.user.save();
+      return res.status(200).json(req.user);
+    }
+    err.name = 'UpdateError';
+    throw err;
+  }
+);
 module.exports = router;
