@@ -1,6 +1,6 @@
 const router = require('express').Router();
 
-const { Blog, User, Readinglist } = require('../models');
+const { Blog, User } = require('../models');
 const { tokenExtractor } = require('../util/middleware');
 
 const { Op } = require('sequelize');
@@ -30,13 +30,6 @@ router.get('/', async (req, res) => {
       {
         model: User,
         attributes: ['name'],
-      },
-      {
-        model: Readinglist,
-        attributes: ['name', 'id'],
-        through: {
-          attributes: [],
-        },
       },
     ],
     where,

@@ -1,6 +1,6 @@
 const router = require('express').Router();
 
-const { User, Blog, Readinglist } = require('../models');
+const { User, Blog, Session } = require('../models');
 const { tokenExtractor } = require('../util/middleware');
 
 router.get('/', async (req, res) => {
@@ -95,6 +95,11 @@ router.put(
       if (req.admin) {
         req.user.disabled = req.body.disabled;
         await req.user.save();
+        if (req.body.disabled) {
+          await Session.destroy({
+            where: { userId: req.user.id },
+          });
+        }
         return res.status(200).json(req.user);
       } else {
         err.name = 'UpdateError';
