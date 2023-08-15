@@ -1,6 +1,6 @@
 const router = require('express').Router();
 
-const { Blog, User } = require('../models');
+const { Blog, User, Readinglist } = require('../models');
 const { tokenExtractor } = require('../util/middleware');
 
 const { Op } = require('sequelize');
@@ -26,10 +26,19 @@ router.get('/', async (req, res) => {
 
   let blogs = await Blog.findAll({
     attributes: { exclude: ['userId'] },
-    include: {
-      model: User,
-      attributes: ['name'],
-    },
+    include: [
+      {
+        model: User,
+        attributes: ['name'],
+      },
+      {
+        model: Readinglist,
+        attributes: ['name', 'id'],
+        through: {
+          attributes: [],
+        },
+      },
+    ],
     where,
     order: [['likes', 'DESC']],
   });

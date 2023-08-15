@@ -31,6 +31,7 @@ router.get('/', async (req, res) => {
     ],
     group: ['author'],
     order: [['likes', 'DESC']],
+    where,
   });
   return res.status(200).json(authors);
 });
